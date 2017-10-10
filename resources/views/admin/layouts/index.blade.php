@@ -46,6 +46,7 @@
 
     <!-- jQuery -->
     <script src="admin_asset/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="admin_asset/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

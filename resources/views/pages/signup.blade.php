@@ -32,18 +32,18 @@
 							</div>
 							<br>
 							<div>
-				    			<label>Email</label>
+				    			<label>Your email</label>
 							  	<input type="email" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1"
 							  	>
 							</div>
 							<br>	
 							<div>								
-				    			<label>Password</label>
+				    			<label>Your password</label>
 							  	<input type="password" class="form-control" name="password" aria-describedby="basic-addon1">
 							</div>
 							<br>
 							<div>
-				    			<label>Repeat Password</label>
+				    			<label>Please confirm your assword</label>
 							  	<input type="password" class="form-control" name="passwordAgain" aria-describedby="basic-addon1">
 							</div>
 							<br>

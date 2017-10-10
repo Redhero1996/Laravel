@@ -1,10 +1,10 @@
- @extends('layout.index')
+ @extends('layouts.index')
  <title>Search</title>
  @section('content')
  <!-- Page Content -->
     <div class="container">
         <div class="row">
-            @include('layout.menu')
+            @include('layouts.menu')
 
             <?php function changeColor($str, $keyword){
             	return str_replace($keyword, "<span style= 'color:red'><strong><i>$keyword</strong></i></span>", $str);
@@ -35,7 +35,7 @@
                     @endforeach
 
                     <!-- Phân trang -->
-                  {{$tintuc->links()}}  
+                  {{$tintuc->appends(Request::all())->links()}}  
 
                     
                 </div>

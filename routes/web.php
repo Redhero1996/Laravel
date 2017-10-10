@@ -15,6 +15,7 @@ use App\TheLoai;
 Route::get('/', function () {
     return view('welcome');
 });
+
 //=======================SIDE SERVER==============================================//
 // Login
 Route::get('admin/login', 'UserController@getLoginAdmin');
@@ -120,9 +121,12 @@ Route::get('tintuc/{id}/{TieuDeKhongDau}.html', 'PagesController@tintuc');
 // Log in
 Route::get('login', 'PagesController@getLogin');
 Route::post('login', 'PagesController@postLogin');
+
+Route::get('/login/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('/callback/{provider}', 'Auth\SocialController@handleProviderCallback');
 // sign up
-Route::get('signup', 'PagesController@getSignup');
-Route::post('signup', 'PagesController@postSignup');
+Route::get('register', 'PagesController@getSignup');
+Route::post('register', 'PagesController@postSignup');
 // logout
 Route::get('logout', 'PagesController@logout');
 // account users
@@ -134,3 +138,8 @@ Route::post('comment/{id}', 'CommentController@postComment');
 Route::post('search', 'PagesController@search');
 // About
 Route::get('about', 'PagesController@about');
+
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

@@ -138,9 +138,9 @@ class UserController extends Controller
         'email' => 'required',
         'password' => 'required|min:6',
       ], [
-        'email.required' => 'Please enter email',
-        'password.required' => 'Please enter password',
-        'password.min' => 'the lenght less 6 char',
+        'email.required' => 'The email field is required.',
+          'password.required' => 'The password field is required.',
+          'password.min' => 'The password must be at least 6 characters.',
       ]);
 
       // Ktra dang nhap đã tồn tại chưa
@@ -148,7 +148,7 @@ class UserController extends Controller
         // dang nhap thanh cong
         return redirect('admin/theloai/list');
       }else{
-        return redirect('admin/login')->with('notification', 'Login fail');
+        return redirect('admin/login')->withInput()->with('notification', 'Incorrect email or password');
       }
   }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;	
+use Validator;
 use App\User;
 use App\TheLoai;
 use App\Slide;
@@ -14,6 +15,8 @@ use App\TinTuc;
 class PagesController extends Controller
 {
 	function __construct(){
+  // $this->middleware('auth');
+    
 		$theloai = TheLoai::all();
 		$slide = Slide::all();
 		view()->share('theloai', $theloai);
@@ -47,24 +50,39 @@ class PagesController extends Controller
     }
     // Dang nhap
     function getLogin(){
-    	return view('pages.login');
+    	return view('auth.login');
     }
     function postLogin(Request $request){
+      // Cach 1:
     	$this->validate($request, [
 	        'email' => 'required',
 	        'password' => 'required|min:6',
 	      ], [
-	        'email.required' => 'Inccorrect email',
-	        'password.required' => 'Inccorrect email',
-	        'password.min' => 'the lenght less 6 char',
+	        'email.required' => 'The email field is required.',
+	        'password.required' => 'The password field is required.',
+	        'password.min' => 'The password must be at least 6 characters.',
 	      ]);
-    	 // Ktra dang nhap đã tồn tại chưa
-      if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-        // dang nhap thanh cong
-        return redirect('homepage');
-      }else{
-        return redirect('login')->with('notification', 'Login fail');
-      }
+
+      // Cach 2:
+      // $rules = [
+      //     'email' => 'required',
+      //     'password' => 'required|min:6',
+      // ];
+      // $validator = Validator::make($request->all(), $rules);
+      // if($validator->fails()){
+      //   return redirect()->back()->withErrors($validator)->withInput();
+      // }else{
+
+           // Ktra dang nhap đã tồn tại chưa
+          if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember_token'))){
+            // dang nhap thanh cong
+            return redirect('homepage');
+          }else{
+            return redirect('login')->withInput()->with('notification', 'Incorrect email or password');
+          }
+     // }
+
+    	
     }
     // Tai khoan nguoi dung
     function getUser(){
@@ -87,9 +105,9 @@ class PagesController extends Controller
           'password' => 'required|min:6',
           'passwordAgain' => 'required|same:password'
         ], [
-          'password.required' => 'Please enter password',
-          'password.min' => 'The lenght less 6 char',
-          'passwordAgain.required' => 'Please enter password',
+          'password.required' => 'The password field is required',
+          'password.min' => 'The password must be at least 6 characters',
+          'passwordAgain.required' => 'The password field is required',
           'passwordAgain.same' => 'Not right password. Please try again!'
        ]);
           $user->password = bcrypt($request->password);
@@ -118,8 +136,9 @@ class PagesController extends Controller
       return redirect('user')->with('notification', 'Edit successfully');
     }
 
+    // Sign up
     function getSignup(){
-    	return view('pages.signup');
+    	return view('auth.signup');
     }
     function postSignup(Request $request){
          $this->validate($request, 

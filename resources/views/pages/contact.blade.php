@@ -1,18 +1,18 @@
-@extends('layout.index')  
+@extends('layouts.index')  
 <title>Contact</title>
 @section('content')
   <!-- Page Content -->
     <div class="container">
 
     	<!-- slider -->
-    	@include('layout.slide')
+    	@include('layouts.slide')
         <!-- end slide -->
 
         <div class="space20"></div>
 
 
         <div class="row main-left">
-            @include('layout.menu')
+            @include('layouts.menu')
 
             <div class="col-md-9">
 	            <div class="panel panel-default">            

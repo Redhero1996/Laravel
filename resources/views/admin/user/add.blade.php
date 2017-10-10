@@ -35,19 +35,19 @@
                                 <input type="file" name="image" />
                             </div>                               
                             <div class="form-group">
-                                <label>Name</label>
-                                <input class="form-control" name="name" placeholder="Please enter username" />
+                                <label>Username</label>
+                                <input class="form-control" name="name" placeholder="Please enter username" value="{{old('name')}}" />
                             </div>                                                     
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Please enter email" />
+                                <input type="email" class="form-control" name="email" placeholder="Please enter email" value="{{old('email')}}" />
                             </div>
                            <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Please enter password" />
+                                <input type="password" class="form-control" name="password" placeholder="Please enter password"/>
                             </div> 
                             <div class="form-group">
-                                <label>Enter password again</label>
+                                <label>Confirm password</label>
                                 <input type="password" class="form-control" name="passwordAgain" placeholder="Please enter password" />
                             </div> 
                             <div class="form-group">

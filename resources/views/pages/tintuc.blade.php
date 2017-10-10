@@ -1,4 +1,4 @@
- @extends('layout.index')
+ @extends('layouts.index')
  <title>Detail</title>
  @section('content')
  <!-- Page Content -->
