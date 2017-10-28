@@ -32,19 +32,19 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}">                        
                             <div class="form-group">
                                 <label>Name</label>
-                                <input class="form-control" name="name" placeholder="Please Enter name slide" />
+                                <input class="form-control" name="name" value="{{old('name')}}" placeholder="Please Enter name slide" />
                             </div> 
                              <div class="form-group">
                                 <label>Image</label>
-                                <input type="file" name="Hinh" />
+                                <input type="file" name="Hinh" value="{{old('Hinh')}}" />
                             </div>                                                       
                             <div class="form-group">
                                 <label>Content</label>
-                                <textarea id="demo" name="NoiDung" rows="10" cols="100"></textarea>
+                                <textarea id="demo" name="NoiDung" value="{{old('NoiDung')}}" rows="10" cols="100"></textarea>
                             </div>
                            <div class="form-group">
                                 <label>Link</label>
-                                <input class="form-control" name="link" placeholder="Please Enter link" />
+                                <input class="form-control" name="link"  placeholder="Please Enter link" />
                             </div> 
                             <button type="submit" class="btn btn-default">Add</button>
                             <button type="reset" class="btn btn-default">Reset</button>

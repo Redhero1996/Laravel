@@ -30,16 +30,17 @@
                 <hr>
                 <!-- Blog Comments -->
 
+                <p>{{$count}} Comment</p> 
                 <!-- Comments Form -->
                	 @if(Auth::user())
 	                <div class="well">
-	                    <h4>Comment <span class="glyphicon glyphicon-pencil"></span></h4>
-	                    <form action="comment/{{$tintuc->id}}" method="post" role="form">
+	                    <h4>Comment <span class="glyphicon glyphicon-pencil" ></span></h4>
+	                    <form action="url('comment/{{$tintuc->id}}')" method="post" role="form">
 	                    	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	                        <div class="form-group">
-	                            <textarea class="form-control" rows="3" name="NoiDung"></textarea>
+	                            <textarea class="form-control" rows="3"></textarea>
 	                        </div>
-	                        <button type="submit" class="btn btn-primary">Submit</button>
+	                        <button type="button" id="submit" class="btn btn-primary">Submit</button>
 	                    </form>
 	                </div>
 	            @endif                               
@@ -47,22 +48,27 @@
                 <!-- Posted Comments -->
 
                 <!-- Comment -->
-                @foreach($tintuc->comment as $cmt)
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="upload/users/{{$cmt->user->image}}" alt="" style="width: 50px; height: 50px">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{$cmt->user->name}}
-                            <small>{{$cmt->created_at}}</small>
-                        </h4>
-                        {{$cmt->NoiDung}}
-                    </div>
-                </div>
-                @endforeach
-            </div>
+                <div class="wrap-comment">
+                    @foreach($tintuc->comment as $cmt)
 
-            <!-- Blog Sidebar Widgets Column -->
+                    <div class="media">
+                        <div class="glyphicon glyphicon-remove" id="remove" style="float: right; color: gray"></div>
+                        <a class="pull-left" href="#">
+                            <img class="media-object" id="img" src="{{$cmt->user->avatar}}" alt="" style="width: 50px; height: 50px">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{$cmt->user->name}}
+                                <small>{{$cmt->created_at}}</small>
+                            </h4>
+                            <span>{{$cmt->NoiDung}}</span>
+                        </div>
+                    </div>                     
+                    @endforeach
+                </div>
+                
+            </div>
+        
+      <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-3">
 
                 <div class="panel panel-default">

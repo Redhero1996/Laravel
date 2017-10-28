@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\LoaiTin;
 use App\TheLoai;
 use App\User;
+use App\TinTuc;
 use App\Comment;
 
 class AjaxController extends Controller
@@ -19,5 +20,4 @@ class AjaxController extends Controller
     	}
     }
 
-    public function getComment()
 }

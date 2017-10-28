@@ -44,6 +44,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/my.js"></script>
+    <script src="js/ajax.js"></script>
 
     @yield('script')
 </body>

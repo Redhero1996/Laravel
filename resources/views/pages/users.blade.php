@@ -27,16 +27,15 @@
                                 {{session('notification')}}
                             </div>
                         @endif
-				    	<form action="user" method="POST">
+				    	<form action="user/{{Auth::user()->id}}" method="POST" enctype="multipart/form-data">
 				    		<input type="hidden" name="_token" value="{{csrf_token()}}">
                             <div>
-                                <label>Avatar</label>
-                                <p>
-                                    <img src="upload/users/{{Auth::user()->image}}" style="width: 200px; height: 200px; border-radius: 50%">
-                                    
-                                </p>
+                                <label>Avatar</label>                               
+                                    <p>
+                                        <img src="{{Auth::user()->avatar}}" style="width: 200px; height: 200px; ">                                      
+                                    </p>                               
                                 <input type="file" name="image" />
-                            </div>       
+                            </div><br>       
 				    		<div>
 				    			<label>UserName</label>
 							  	<input type="text" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1" value="{{Auth::user()->name}}">

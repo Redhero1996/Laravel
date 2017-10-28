@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 
+        'avatar', 'provider_id', 'provider',
+        'access_token'
     ];
 
     /**
@@ -30,5 +33,14 @@ class User extends Authenticatable
     // bang comment
     public function comment(){
         return $this->hasMany('App\Comment', 'idUser', 'id');
+    }
+    // verification token
+    // public function verificationToken(){
+    //     return $this->hasOne(VerificationToken::class);
+    // }
+
+    public function getAvatarAttribute($val)
+    {
+        return is_null($val) ? asset('image/18bdwssyxpibxjpg.jpg') : asset('upload/users/'.$val);
     }
 }

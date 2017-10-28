@@ -13,19 +13,10 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <!-- In error -->
-                        @if(count($errors) > 0)
-                            <div class="alert alert-danger">
-                                @foreach($errors->all() as $err)
-                                    {{$err}}<br>
-                                @endforeach
-                            </div>
-                        @endif
-
                         <!-- In message -->
-                        @if(session('notification'))
+                        @if(session('success'))
                             <div class="alert alert-success">
-                                {{session('notification')}}
+                                {{session('success')}}
                             </div>
                         @endif
                         <form action="admin/user/edit/{{$user->id}}" method="POST" enctype="multipart/form-data">
@@ -33,7 +24,7 @@
                              <div class="form-group">
                                 <label>Image</label>
                                 <p>
-                                    <img src="upload/users/{{$user->image}}" style="width: 200px; height: 200px">
+                                    <img src="upload/users/{{$user->avatar}}" style="width: 200px; height: 200px">
                                 </p>
                                 <input type="file" name="image" />
                             </div>                 

@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//=======================SIDE SERVER==============================================//
+//======================= SERVER SIDE ==============================================//
 // Login
 Route::get('admin/login', 'UserController@getLoginAdmin');
 Route::post('admin/login', 'UserController@postLoginAdmin');
@@ -55,6 +55,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function(){
 		Route::get('delete/{id}', 'LoaiTinController@getDelete');
 	});
 
+	Route::group(['prefix' => 'ajax'], function(){
+		Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
+	});
+
 	// admin/tintuc/
 	Route::group(['prefix' => 'tintuc'], function(){
 		// Chuyển đến trang danh sách
@@ -69,9 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function(){
 		Route::get('delete/{id}', 'TinTucController@getDelete');
 	});
 
-	Route::group(['prefix' => 'ajax'], function(){
-		Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
-	});
+	
 
 	// admin/comment/
 	Route::group(['prefix' => 'comment'], function(){
@@ -108,7 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function(){
 	});
 });
 
-//========================SIDE CLIENT===================================================//
+//========================= CLIENT SIDE ===================================================//
 
 // homepage
 Route::get('homepage', 'PagesController@homepage');
@@ -119,8 +121,8 @@ Route::get('loaitin/{id}/{TenKhongDau}.html', 'PagesController@loaitin');
 // tin tuc
 Route::get('tintuc/{id}/{TieuDeKhongDau}.html', 'PagesController@tintuc');
 // Log in
-Route::get('login', 'PagesController@getLogin');
-Route::post('login', 'PagesController@postLogin');
+Route::get('login', 'Auth\LoginController@getLogin');
+Route::post('login', 'Auth\LoginController@postLogin');
 
 Route::get('/login/{provider}', 'Auth\SocialController@redirectToProvider');
 Route::get('/callback/{provider}', 'Auth\SocialController@handleProviderCallback');
@@ -130,16 +132,27 @@ Route::post('register', 'PagesController@postSignup');
 // logout
 Route::get('logout', 'PagesController@logout');
 // account users
-Route::get('user','PagesController@getUser');
-Route::post('user', 'PagesController@postUser');
+Route::get('user/{id}','PagesController@getUser');
+Route::post('user/{id}', 'PagesController@postUser');
 // Comment
 Route::post('comment/{id}', 'CommentController@postComment');
+Route::post('comment/{id}', 'CommentController@deleteComment');
 // Search
-Route::post('search', 'PagesController@search');
+Route::get('search', 'PagesController@Search');
 // About
 Route::get('about', 'PagesController@about');
+
+// ======================Ajax================================//
 
 
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
+
+// Reset password
+Route::group(['middleware' => 'web'], function(){
+	Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+	Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+	Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+	Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+});

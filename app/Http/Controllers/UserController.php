@@ -56,16 +56,16 @@ class UserController extends Controller
             $img = $file->getClientOriginalName();
             // tao ten de k bi trung
             while (file_exists('upload/users/'.$img)) {
-                $img = $img.'('.str_random(1).')';
+                $img = '('.str_random(1).')'.$img;
             }
             // luu hinh
             $file->move('upload/users', $img);
             // Xoa hinh cu
-          //  unlink('upload/users/'.$user->image);
-            $user->image = $img;
+          //  unlink('upload/users/'.$user->avatar);
+            $user->avatar = $img;
        }
       $user->save();
-      return redirect('admin/user/edit/'.$id)->with('notification', 'Add user successfully');
+      return redirect('admin/user/edit/'.$id)->with('notification', 'User was edited');
     }
 //==================DELETE==============================================//    
     public function getDelete($id){
@@ -116,13 +116,13 @@ class UserController extends Controller
             $img = $file->getClientOriginalName();
             // tao ten de k bi trung
             while (file_exists('upload/users/'.$img)) {
-                $img = $img.'('.str_random(1).')';
+                $img = '('.str_random(1).')'.$img;
             }
             // luu hinh
             $file->move('upload/users', $img);
-            $user->image = $img;
+            $user->avatar = $img;
        }else{
-            $user->image = "";
+            $user->avatar = "";
        }
       $user->save();
       return redirect('admin/user/add')->with('notification', 'Add user successfully');

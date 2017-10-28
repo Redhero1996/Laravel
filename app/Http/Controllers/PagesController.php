@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;	
 use Validator;
+use App\Comment;
 use App\User;
 use App\TheLoai;
 use App\Slide;
@@ -42,54 +43,61 @@ class PagesController extends Controller
     }
     // trang tin tuc
     function tintuc($id){
+
     	$tintuc = TinTuc::find($id);
     	$tinnoibat = TinTuc::where('NoiBat', 1)->take(4)->get();
+      // count comment
+      $count = Comment::where('idTinTuc', $id)->count();
+
     	// tìm các tin tức có idLoaiTin bằng vs tintuc->idLoaiTin đã tìm
     	$tinlienquan = TinTuc::where('idLoaiTin', $tintuc->idLoaiTin)->take(4)->get();
-    	return view('pages.tintuc', ['tintuc' => $tintuc, 'tinnoibat' => $tinnoibat, 'tinlienquan' => $tinlienquan]);
+    	return view('pages.tintuc', ['tintuc' => $tintuc, 'tinnoibat' => $tinnoibat, 'tinlienquan' => $tinlienquan,
+         'count' => $count
+    ]);
     }
     // Dang nhap
-    function getLogin(){
-    	return view('auth.login');
-    }
-    function postLogin(Request $request){
-      // Cach 1:
-    	$this->validate($request, [
-	        'email' => 'required',
-	        'password' => 'required|min:6',
-	      ], [
-	        'email.required' => 'The email field is required.',
-	        'password.required' => 'The password field is required.',
-	        'password.min' => 'The password must be at least 6 characters.',
-	      ]);
+    // function getLogin(){
+    // 	return view('auth.login');
+    // }
+    // function postLogin(Request $request){
+    //   // Cach 1:
+    // 	$this->validate($request, [
+	   //      'email' => 'required',
+	   //      'password' => 'required|min:6',
+	   //    ], [
+	   //      'email.required' => 'The email field is required.',
+	   //      'password.required' => 'The password field is required.',
+	   //      'password.min' => 'The password must be at least 6 characters.',
+	   //    ]);
 
-      // Cach 2:
-      // $rules = [
-      //     'email' => 'required',
-      //     'password' => 'required|min:6',
-      // ];
-      // $validator = Validator::make($request->all(), $rules);
-      // if($validator->fails()){
-      //   return redirect()->back()->withErrors($validator)->withInput();
-      // }else{
+    //   // Cach 2:
+    //   // $rules = [
+    //   //     'email' => 'required',
+    //   //     'password' => 'required|min:6',
+    //   // ];
+    //   // $validator = Validator::make($request->all(), $rules);
+    //   // if($validator->fails()){
+    //   //   return redirect()->back()->withErrors($validator)->withInput();
+    //   // }else{
 
-           // Ktra dang nhap đã tồn tại chưa
-          if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember_token'))){
-            // dang nhap thanh cong
-            return redirect('homepage');
-          }else{
-            return redirect('login')->withInput()->with('notification', 'Incorrect email or password');
-          }
-     // }
+    //        // Ktra dang nhap đã tồn tại chưa
+    //       if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember_token'))){
+    //         // dang nhap thanh cong
+    //         return redirect('homepage');
+    //       }else{
+    //         return redirect('login')->withInput()->with('notification', 'Incorrect email or password');
+    //       }
+    //  // }
 
     	
-    }
+    // }
     // Tai khoan nguoi dung
-    function getUser(){
-    	return view('pages.users');
+    public function getUser($id){
+       $user = Auth::user($id);
+       return view('pages.users', ['user' => $user]);
     }
-    function postUser(Request $request){
-    	$user = Auth::user();
+    public function postUser(Request $request, $id){
+      $user = Auth::user($id);
        $this->validate($request, 
         [ 
           'name' =>'required',
@@ -97,6 +105,7 @@ class PagesController extends Controller
           'name.required' => 'Please enter name',
         ]);
       $user->name = $request->name;
+      $user->quyen = 0;
 
       // kiem tra password
       if($request->changePassword == 'on'){
@@ -105,35 +114,35 @@ class PagesController extends Controller
           'password' => 'required|min:6',
           'passwordAgain' => 'required|same:password'
         ], [
-          'password.required' => 'The password field is required',
-          'password.min' => 'The password must be at least 6 characters',
-          'passwordAgain.required' => 'The password field is required',
+          'password.required' => 'Please enter password',
+          'password.min' => 'The lenght less 6 char',
+          'passwordAgain.required' => 'Please enter password',
           'passwordAgain.same' => 'Not right password. Please try again!'
        ]);
           $user->password = bcrypt($request->password);
       }
-       if($request->hasFile('image')){
+      if($request->hasFile('image')){
             $file = $request->file("image");
             // Lay duoi file
-           // $tail = $file->getClientOriginalExtension();
-            // if($tail != 'jpg' && $tail !='png' && $tail != 'gif' && $tail != 'jpeg'){
-            //     return redirect('user')->with('error', 'You have to choose jpg, png, gif, jpeg');
-            // }
+            $tail = $file->getClientOriginalExtension();
+            if($tail != 'jpg' && $tail !='png' && $tail != 'gif' && $tail != 'jpeg'){
+                return redirect('user')->with('error', 'You have to choose jpg, png, gif, jpeg');
+            }
             // ktra hinh da ton tai chua
             // lay ten hinh ra
             $img = $file->getClientOriginalName();
             // tao ten de k bi trung
             while (file_exists('upload/users/'.$img)) {
-                $img = $img.'('.str_random(1).')';
+                $img = '('.str_random(1).')'.$img;
             }
             // luu hinh
             $file->move('upload/users', $img);
-           // Xoa hinh cu
-           unlink('upload/users/'.$user->image);
-            $user->image = $img;
+            // Xoa hinh cu
+            // unlink('upload/users/'.$user->avatar);
+            $user->avatar = $img;
        }
       $user->save();
-      return redirect('user')->with('notification', 'Edit successfully');
+      return redirect('user/'.$id)->with('notification', 'Edit user successfully');
     }
 
     // Sign up
@@ -175,24 +184,24 @@ class PagesController extends Controller
             $img = $file->getClientOriginalName();
             // tao ten de k bi trung
             while (file_exists('upload/users/'.$img)) {
-                $img = $img.'('.str_random(1).')';
+                $img = '('.str_random(1).')'.$img;
             }
             // luu hinh
             $file->move('upload/users', $img);
-            $user->image = $img;
+            $user->avatar = $img;
        }else{
-            $user->image = "";
+            $user->avatar = "";
        }
       $user->save();
       return redirect('login')->with('created', 'Created successfully');
     }
 
     //Search
-    function search(Request $request){
+   public function Search(Request $request){
       $keyword = $request->keyword;
-      // tim theo tieude, tomtat, noidung
-      $tintuc = TinTuc::where('TieuDe', 'like', "%$keyword%")->orwhere('TomTat', 'like', "%$keyword%")->orwhere('NoiDung', 'like', "%$keyword%")->take(30)->paginate(5);
-      return view('pages.search', ['tintuc' => $tintuc, 'keyword' => $keyword]);
+      $tintuc = TinTuc::where('TieuDe','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->paginate(5)->appends(['keyword' => $keyword]);
+
+      return view('page.search',['tintuc' => $tintuc, 'keyword' => $request->keyword]);
     }
 
     // About

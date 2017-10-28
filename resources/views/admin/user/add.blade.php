@@ -14,13 +14,13 @@
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
                         <!-- In error -->
-                        @if(count($errors) > 0)
+                       <!--  @if(count($errors) > 0)
                             <div class="alert alert-danger">
                                 @foreach($errors->all() as $err)
                                     {{$err}}<br>
                                 @endforeach
                             </div>
-                        @endif
+                        @endif -->
 
                         <!-- In message -->
                         @if(session('notification'))
@@ -37,18 +37,30 @@
                             <div class="form-group">
                                 <label>Username</label>
                                 <input class="form-control" name="name" placeholder="Please enter username" value="{{old('name')}}" />
+                                 @if($errors->has('name'))
+                                    <span style="color: red;"><i>{{$errors->first('name')}}</i></span>
+                                @endif
                             </div>                                                     
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control" name="email" placeholder="Please enter email" value="{{old('email')}}" />
+                                @if($errors->has('email'))
+                                    <span style="color: red;"><i>{{$errors->first('email')}}</i></span>
+                                @endif
                             </div>
                            <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" class="form-control" name="password" placeholder="Please enter password"/>
+                                @if($errors->has('password'))
+                                    <span style="color: red;"><i>{{$errors->first('password')}}</i></span>
+                                @endif
                             </div> 
                             <div class="form-group">
                                 <label>Confirm password</label>
                                 <input type="password" class="form-control" name="passwordAgain" placeholder="Please enter password" />
+                                @if($errors->has('passwordAgain'))
+                                    <span style="color: red;"><i>{{$errors->first('passwordAgain')}}</i></span>
+                                @endif
                             </div> 
                             <div class="form-group">
                                 <label>Level</label>

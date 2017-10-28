@@ -13,6 +13,10 @@ class TheLoai extends Model
     }
     // bang tintuc
     public function tintuc(){
+    	// App\TinTuc: model cuối, 
+    	// App\LoaiTin: model trung gian,
+    	// idTheLoai: khóa ngoại trên model trung gian
+    	// idLoaiTin: khóa ngoại trên model cuối
     	return $this->hasManyThrough('App\TinTuc', 'App\LoaiTin', 'idTheLoai', 'idLoaiTin', 'id');
     }
 }

@@ -40,14 +40,14 @@
                         <li>
                             <a href="{{ route('login') }}">Sign in</a>
                         </li>
-                    @else
-                        <li>
-                        	<a href="user">
-                        		<img src="upload/users/{{Auth::user()->image}}" style="width: 25px; height: 25px; border-radius: 50% 50%;">
-                        		{{Auth::user()->name}}
-                        	</a>
-                        </li>
-
+                    @else                        
+                            <li>
+                            	<a href="user/{{Auth::user()->id}}">
+                            		      <img src="{{Auth::user()->avatar}}" style="width: 25px; height: 25px; border-radius: 50% 50%;">     
+                            		{{Auth::user()->name}}
+                            	</a>
+                            </li>                    
+                       
                         <li>
                         	<a href="logout">Log out</a>
                         </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateRequest;
 use App\Slide;
 
 class SlideController extends Controller
@@ -17,17 +18,9 @@ class SlideController extends Controller
         $slide = Slide::find($id);
         return view('admin.slide.edit', ['slide' =>$slide]);
     }
-    public function postEdit(Request $request, $id){
+    public function postEdit(ValidateRequest $request, $id){
       $slide = Slide::find($id);
-    	 $this->validate($request, 
-        [  
-          'name' => 'required',
-          'NoiDung' => 'required',
-        ], 
-        [
-          'name.required' => 'Please enter name',
-          'NoiDung.required' => 'Please enter content',
-        ]);
+    	 // 
         $slide->Ten = $request->name;
         $slide->NoiDung = $request->NoiDung;
          $slide->link = $request->link;
@@ -68,16 +61,8 @@ class SlideController extends Controller
        return view('admin.slide.add', ['slide' => $slide]);
     }
     // nhận dl trả về và thêm vào csdl
-    public function postAdd(Request $request){
-       $this->validate($request, 
-        [  
-          'name' => 'required',
-          'NoiDung' => 'required',
-        ], 
-        [
-          'name.required' => 'Please enter name',
-          'NoiDung.required' => 'Please enter content',
-        ]);
+    public function postAdd(ValidateRequest $request){
+       
        $slide = new Slide;
        $slide->Ten = $request->name;
        $slide->NoiDung = $request->NoiDung;

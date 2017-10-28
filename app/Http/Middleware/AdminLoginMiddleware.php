@@ -17,13 +17,8 @@ class AdminLoginMiddleware
     public function handle($request, Closure $next)
     {
         // ktra người dùng có đang đăng nhập k
-        if(Auth::check()){
-            $user = Auth::user();
-            if($user->quyen == 1){
-                return $next($request);
-            }else{
-                return redirect('admin/login');
-            }
+        if(Auth::check() && (Auth::user()->quyen == 1)){           
+                return $next($request);           
         }else{
             return redirect('admin/login');
         }
