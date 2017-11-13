@@ -1,5 +1,5 @@
  
- <title>Category</title>
+<?php $__env->startSection('title', 'Category'); ?>
  <?php $__env->startSection('content'); ?>
  <!-- Page Content -->
     <div class="container">
@@ -20,10 +20,12 @@
 			                 </div>
 
 	                        <div class="col-md-9">
-	                            <h3><?php echo e($tt->TieuDe); ?></h3>
+	                            <a href="tintuc/<?php echo e($tt->id); ?>/<?php echo e($tt->TieuDeKhongDau); ?>.html" style="color: #000">
+                                    <h3><strong><i><?php echo e($tt->TieuDe); ?></i></strong></h3>
+                                </a>
 	                            <p><?php echo e($tt->TomTat); ?></p>
-	                            <a class="btn btn-primary" href="tintuc/<?php echo e($tt->id); ?>/<?php echo e($tt->TieuDeKhongDau); ?>.html">Detail<span class="glyphicon glyphicon-chevron-right"></span></a>
-	                        </div>
+                            </div>
+                           
 	                        <div class="break"></div>
 	                    </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

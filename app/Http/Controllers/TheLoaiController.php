@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Comment;
 use App\TheLoai;
 use App\TinTuc;
 use App\LoaiTin;
@@ -42,12 +43,15 @@ class TheLoaiController extends Controller
 //==================DELETE==============================================//    
     public function getDelete($id){
     	$theloai = TheLoai::find($id);
-        // $loaitin = LoaiTin::where('idLoaiTin', $id);
-        // $tintuc = TinTuc::where('idTheLoai', $loaitin);
-        // $tintuc->delete();
-        // $loaitin->delete();
+        $loaitin = LoaiTin::where('idTheLoai', $id);
+        $tintuc = TinTuc::where('idLoaiTin', $loaitin);
+       // dd($theloai, $loaitin, $tintuc);
+       
+        $tintuc->delete();
+        $loaitin->delete();
     	$theloai->delete();
-    	return redirect('admin/theloai/list')->with('notification', 'Delete successfully');
+    
+    	return redirect('admin/theloai/list')->with('notification', 'Deleted was success');
     }
 //==================ADD==============================================//
     public function getAdd(){

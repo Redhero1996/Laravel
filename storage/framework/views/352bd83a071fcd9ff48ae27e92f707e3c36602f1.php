@@ -1,5 +1,5 @@
 
-<div class="row carousel-holder" >
+<div class="row carousel-holder">
             <div class="col-md-12" >
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" >
                     <ol class="carousel-indicators">
@@ -24,7 +24,7 @@
                         		<?php endif; ?>	
                             >
                             <?php $i++; ?>
-                            	<img class="slide-image" src="upload/slide/<?php echo e($sl->Hinh); ?>" alt="<?php echo e($sl->NoiDung); ?>" style="width: 100%; height: 70%">
+                            	<img class="slide-image" src="upload/slide/<?php echo e($sl->Hinh); ?>" alt="<?php echo e($sl->NoiDung); ?>" style="width: 100%; height: 400px">
                        		</div>
                        	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                       
                     </div>
@@ -36,4 +36,4 @@
                     </a>
                 </div>
             </div>
-        </div>
+</div>

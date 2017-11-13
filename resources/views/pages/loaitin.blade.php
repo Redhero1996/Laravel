@@ -1,5 +1,5 @@
  @extends('layouts.index')
- <title>Category</title>
+@section('title', 'Category')
  @section('content')
  <!-- Page Content -->
     <div class="container">
@@ -20,10 +20,12 @@
 			                 </div>
 
 	                        <div class="col-md-9">
-	                            <h3>{{$tt->TieuDe}}</h3>
+	                            <a href="tintuc/{{$tt->id}}/{{$tt->TieuDeKhongDau}}.html" style="color: #000">
+                                    <h3><strong><i>{{$tt->TieuDe}}</i></strong></h3>
+                                </a>
 	                            <p>{{$tt->TomTat}}</p>
-	                            <a class="btn btn-primary" href="tintuc/{{$tt->id}}/{{$tt->TieuDeKhongDau}}.html">Detail<span class="glyphicon glyphicon-chevron-right"></span></a>
-	                        </div>
+                            </div>
+                           
 	                        <div class="break"></div>
 	                    </div>
                     @endforeach

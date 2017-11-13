@@ -111,7 +111,7 @@ class TinTucController extends Controller
        $tintuc->SoLuotXem = 0;
 
        // Kiem tra co truyen hinh len k.
-       if($request->hasFile('Hinh')->isValid()){
+       if($request->hasFile('Hinh')){
           // Lấy file ra
             $file = $request->file("Hinh");
             // Lay duoi file

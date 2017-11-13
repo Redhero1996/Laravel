@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>Home page</title>
+    <title><?php echo $__env->yieldContent('title'); ?></title>
     <base href="<?php echo e(asset('')); ?>">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,9 +43,9 @@
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src= "js/bootstrap.min.js"></script>
     <script src="js/my.js"></script>
-    <script src="js/ajax.js"></script>
+    <!-- <script src="js/tintuc.js"></script> -->
 
     <?php echo $__env->yieldContent('script'); ?>
 </body>

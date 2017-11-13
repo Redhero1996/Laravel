@@ -1,5 +1,5 @@
  
- <title>Account</title>
+<?php $__env->startSection('title', 'Acount'); ?>
  <?php $__env->startSection('content'); ?>
  <!-- Page Content -->
     <div class="container" style="height: 90%">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;	
+use DateTime;
+use Session;
 use Validator;
 use App\Comment;
 use App\User;
@@ -52,8 +54,7 @@ class PagesController extends Controller
     	// tìm các tin tức có idLoaiTin bằng vs tintuc->idLoaiTin đã tìm
     	$tinlienquan = TinTuc::where('idLoaiTin', $tintuc->idLoaiTin)->take(4)->get();
     	return view('pages.tintuc', ['tintuc' => $tintuc, 'tinnoibat' => $tinnoibat, 'tinlienquan' => $tinlienquan,
-         'count' => $count
-    ]);
+         'count' => $count ]);
     }
     // Dang nhap
     // function getLogin(){
@@ -199,9 +200,10 @@ class PagesController extends Controller
     //Search
    public function Search(Request $request){
       $keyword = $request->keyword;
-      $tintuc = TinTuc::where('TieuDe','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->paginate(5)->appends(['keyword' => $keyword]);
 
-      return view('page.search',['tintuc' => $tintuc, 'keyword' => $request->keyword]);
+      $tintuc = TinTuc::where('TieuDe','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->orWhere('TomTat','like',"%$request->keyword%")->paginate(5);
+
+      return view('pages.search',['tintuc' => $tintuc, 'keyword' => $request->keyword, ]);
     }
 
     // About
@@ -212,6 +214,7 @@ class PagesController extends Controller
     // logout
     function logout(){
     	Auth::logout();
+      Session::flush();
     	return redirect('homepage');
     }
 }

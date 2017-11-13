@@ -1,5 +1,5 @@
  @extends('layouts.index')
- <title>Search</title>
+@section('title', 'Search')
  @section('content')
  <!-- Page Content -->
     <div class="container">
@@ -16,7 +16,6 @@
                     <div class="panel-heading" style="background-color:#337AB7; color:white;">
                         <h4><b>Search: {{$keyword}}</b></h4>
                     </div>              
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
                        @foreach($tintuc as $tt)
     	                    <div class="row-item row">                   
     	                        <div class="col-md-3">

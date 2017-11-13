@@ -1,4 +1,4 @@
-F@extends('admin.layouts.index')
+@extends('admin.layouts.index')
 <title>Add News</title>
 @section('content')
    <!-- Page Content -->

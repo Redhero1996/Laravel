@@ -47,9 +47,10 @@ class LoaiTinController extends Controller
     public function getDelete($id){
     	$loaitin = LoaiTin::find($id);
         $tintuc = TinTuc::where('idLoaiTin', $id);
+        // dd($tintuc, $loaitin);
         $tintuc->delete();
         $loaitin->delete();
-        return redirect('admin/loaitin/list');
+        return redirect('admin/loaitin/list')->with('notification', 'Deleted was success');
     }
 //==================ADD==============================================//
     public function getAdd(){

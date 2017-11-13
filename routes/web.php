@@ -78,7 +78,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function(){
 	// admin/comment/
 	Route::group(['prefix' => 'comment'], function(){
 		// Delete
-		Route::get('delete/{id}/{idTinTucs}', 'CommentController@getDelete');
+		Route::get('delete/{id}', 'CommentController@getDelete');
 	});
 
 	// admin/slide/
@@ -135,8 +135,8 @@ Route::get('logout', 'PagesController@logout');
 Route::get('user/{id}','PagesController@getUser');
 Route::post('user/{id}', 'PagesController@postUser');
 // Comment
-Route::post('comment/{id}', 'CommentController@postComment');
-Route::post('comment/{id}', 'CommentController@deleteComment');
+Route::post('comment/{tintuc_id}', 'CommentController@postComment');
+Route::post('tintuc/{tintuc_id}/comment/{comment_id}', 'CommentController@deleteComment');
 // Search
 Route::get('search', 'PagesController@Search');
 // About

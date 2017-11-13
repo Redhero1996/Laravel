@@ -1,5 +1,5 @@
 @extends('layouts.index')  
-<title>Contact</title>
+@section('title', 'Contact')
 @section('content')
   <!-- Page Content -->
     <div class="container">

@@ -1,5 +1,5 @@
  @extends('layouts.index')
-<title>About</title>
+@section('title', 'About')
 @section('content')
  <!-- Page Content -->
     <div class="container">

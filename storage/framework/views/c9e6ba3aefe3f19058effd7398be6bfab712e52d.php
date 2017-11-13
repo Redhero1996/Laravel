@@ -12,19 +12,10 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <!-- In error -->
-                        <?php if(count($errors) > 0): ?>
-                            <div class="alert alert-danger">
-                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php echo e($err); ?><br>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-                        <?php endif; ?>
-
                         <!-- In message -->
-                        <?php if(session('notification')): ?>
+                        <?php if(session('success')): ?>
                             <div class="alert alert-success">
-                                <?php echo e(session('notification')); ?>
+                                <?php echo e(session('success')); ?>
 
                             </div>
                         <?php endif; ?>

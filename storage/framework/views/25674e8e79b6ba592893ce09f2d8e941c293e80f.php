@@ -31,7 +31,7 @@
                         	<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
                             <div class="form-group">
                                 <label>Category</label>                              
-                                <select class="form-control" name="TheLoai" id="TheLoai" onclick="load_ajax()">
+                                <select class="form-control" name="TheLoai" id="TheLoai">
                                      <?php $__currentLoopData = $theloai; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     	<option value="<?php echo e($tl->id); ?>"><?php echo e($tl->Ten); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -93,23 +93,6 @@
 				});  // lay theloai ve de truyen idTheLoai sang va nhan cai theloai ve
 			});
 		});
-	// function load_ajax(){
-	// 	$.ajax({
-	// 	    url: 'admin/ajax/loaitin/'+idTheLoai, // gửi ajax đến file result.php
-	// 	    type: 'GET', // chọn phương thức gửi là post
-	// 	    dataType: 'html', // dữ liệu trả về dạng text
-	// 	    data: { // Danh sách các thuộc tính sẽ gửi đi
-	// 	        'idTheLoai': $('#TheLoai').val()
-	// 	    },
-		   
-	// 	    success: function(data) {
-	// 	        $("#LoaiTin").html(data);
-	// 	    },
-	// 	    error: function() {
-	// 	        alert('Có lỗi trong quá trình xử lý');
-	// 	    }
-	// 	});
-	// }
     
 	</script>
 <?php $__env->stopSection(); ?>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    
 	protected $touches = ['tintuc', 'user'];
     protected $table = "comment";
     protected $fillable = ['idUser', 'NoiDung', 'idTinTuc'];

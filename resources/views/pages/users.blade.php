@@ -1,5 +1,5 @@
  @extends('layouts.index')
- <title>Account</title>
+@section('title', 'Acount')
  @section('content')
  <!-- Page Content -->
     <div class="container" style="height: 90%">

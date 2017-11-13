@@ -1,4 +1,4 @@
-<title>Home page</title>
+<?php $__env->startSection('title', 'Homepage'); ?>
 <?php $__env->startSection('content'); ?>
  <!-- Page Content -->
     <div class="container">
@@ -35,6 +35,7 @@
 				                		$data = $lt->tintuc->where('NoiBat', 1)->sortByDesc('created_at')->take(5);
 				                		// lấy ra 1 tin. trong data chỉ còn 4 tin. trả về kiểu mảng
 				                		$tin1 = $data->shift();
+
 				                	 ?>
 				                	<div class="col-md-8 border-right">
 				                		<div class="col-md-5">
@@ -44,11 +45,11 @@
 					                    </div>
 
 					                    <div class="col-md-7">
-					                        <h3><?php echo e($tin1['TieuDe']); ?></h3>
+					                       <a style="color: #000" href="tintuc/<?php echo e($tin1['id']); ?>/<?php echo e($tin1['TieuDeKhongDau']); ?>.html">
+					                    		<h4><strong><i><?php echo e($tin1['TieuDe']); ?></i></strong></h4>
+					                    	</a>
 					                        <p><?php echo e($tin1['TomTat']); ?></p>
-					                        <a class="btn btn-primary" href="tintuc/<?php echo e($tin1['id']); ?>/<?php echo e($tin1['TieuDeKhongDau']); ?>.html">Detail <span class="glyphicon glyphicon-chevron-right"></span></a>
-										</div>
-
+					                    </div>
 				                	</div>
 				                    
 

@@ -23,7 +23,8 @@
                     </li>
                 </ul>
 
-                <form action="search" method="POST" class="navbar-form navbar-left" role="search">
+                <form action="search" method="get" class="navbar-form navbar-left" role="search">
+
                     <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 			        <div class="form-group">
 			          <input type="text" name="keyword" class="form-control" placeholder="Search">
